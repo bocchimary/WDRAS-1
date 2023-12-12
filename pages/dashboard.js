@@ -72,7 +72,7 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     setLoading(true);
-    fetch("http://192.168.243.178:3002/device")
+    fetch("http://localhost:3002/device")
       .then((res) => res.json())
       .then((data) => {
         setData(data);
@@ -102,11 +102,11 @@ export default function AdminDashboard() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
-      <div className={styles.movingTextContainer}>
+  { /*   <div className={styles.movingTextContainer}>
   <div className={styles.movingText} style={{ width: '100%' }}>
     <h3>Welcome to the Admin Dashboard!</h3>
     </div>
-  </div>
+  </div> */}
       <h1 className="text-white bg-black">Admin, Welcome to Dashboard</h1>
       <p className="text-white">{formattedDateTime}</p>
       <div className="row">
