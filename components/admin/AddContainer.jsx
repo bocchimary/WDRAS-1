@@ -1,12 +1,13 @@
 
 import { AiFillCloseCircle } from "react-icons/ai";
 import React, { useState, useEffect } from "react";
-import { Button, Modal, Form, Table } from "react-bootstrap";
-
+import { Button, Form, Table } from "react-bootstrap";
+import Modal from 'react-modal';
 
 
 const AddContainer = () => {
   const [showForm, setShowForm] = useState();
+  const [isModalOpen, setModalOpen] = useState(false);
   const [newTextBoxValue, setNewTextBoxValue] = useState('');
   const [currenttime, setcurrenttime] = useState('');
   const [remainrefill, setcurrentremainrefill] = useState('');
@@ -36,7 +37,7 @@ const AddContainer = () => {
 
     // Send a POST request to your server to store the container data
     try {
-      const response = await fetch('http://192.168.243.178:3001/AddContainer', {
+      const response = await fetch('http://192.168.101.178:3001/AddContainer', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -63,7 +64,7 @@ const AddContainer = () => {
     // Add this function above your return statement
     const handleAddToMySQL = async () => {
       try {
-        const response = await fetch('http://192.168.243.178:3001/addToMySQL', {
+        const response = await fetch('http://localhost:3001/addToMySQL', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -79,6 +80,8 @@ const AddContainer = () => {
         if (response.ok) {
           console.log('Data added to MySQL successfully:', data);
           // Optionally, you can clear the textbox value after adding to MySQL
+          handleCloseForm();
+          handleUpdateGallons();
           setNewTextBoxValue('');
           SetNewDate('');
         } else {
@@ -97,7 +100,7 @@ const AddContainer = () => {
   const fetchTotalValue = async () => {
     try {
     
-      const response = await fetch('http://192.168.243.178:3001/getTotalValue', {
+      const response = await fetch('http://localhost:3001/getTotalValue', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -119,11 +122,20 @@ const AddContainer = () => {
       console.error('Error fetching total value:', error);
     }
   };
+  const updated = async () => {
+    try {
+      const response = await fetch('http://localhost:3001/updated');
+      const data = await response.json();
 
+      setMessage(data.message);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
   const calculateTotalGallons = async () => {
     try {
    
-      const response = await fetch('http://192.168.243.178:3001/calculateTotalGallons', {
+      const response = await fetch('http://localhost:3001/calculateTotalGallons', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -164,7 +176,7 @@ const AddContainer = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch('http://192.168.243.178:3001/gallonstotal');
+      const response = await fetch('http://localhost:3001/gallonstotal');
       const result = await response.json();
 
       if (response.ok) {
@@ -179,7 +191,7 @@ const AddContainer = () => {
 
   const fetchData1 = async () => {
     try {
-      const response = await fetch('http://192.168.243.178:3001/add');
+      const response = await fetch('http://localhost:3001/add');
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
@@ -191,9 +203,32 @@ const AddContainer = () => {
     }
   };
 
+
   fetchData1();
 
+  const handleUpdateGallons = () => {
+    // Your logic to update gallons goes here
+    // For now, let's just open the modal
+    setModalOpen(true);
+  };
 
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
+
+  const modalStyle = {
+    overlay: {
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+    content: {
+      padding: '20px',
+      width: '500px',
+      height:'300px',
+      margin: 'auto',
+      backgroundColor: 'white',
+      borderRadius: '8px',
+    },
+  };
 
   return (
     <div>
@@ -206,7 +241,7 @@ const AddContainer = () => {
         <>
           <div className="overlay" onClick={handleOverlayClick}></div>
           <form onSubmit={(e) => { e.preventDefault(); handleAddToMySQL();
-             calculateTotalGallons(); fetchData(); fetchData1();
+             calculateTotalGallons(); fetchData(); fetchData1();updated();
              
              }} className="form-container">
             <div className="close-button" onClick={handleCloseForm}>
@@ -236,7 +271,20 @@ const AddContainer = () => {
       )}
       
 
-     
+      <div>
+      <button onClick={handleUpdateGallons}>Update Gallons</button>
+
+      <Modal
+        isOpen={isModalOpen}
+        onRequestClose={handleCloseModal}
+        contentLabel="Gallons Updated Modal"
+        style={modalStyle}
+        
+      >
+        <h2>Gallons Updated</h2>
+        <button onClick={handleCloseModal}>Close</button>
+      </Modal>
+    </div>
     </div>
   );
 };

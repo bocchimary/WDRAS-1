@@ -26,7 +26,7 @@ function DaSteTimeComponent() {
     function updateFullDateTime() {
       const now = new Date();
       const options = {
-        weekday: 'long',
+        welcomelekday: 'long',
         year: 'numeric',
         month: 'long',
         day: 'numeric',
@@ -137,7 +137,7 @@ export default function Dashboard({ user }) {
         <TableAdd />
          <InvButton />
          <UpdatedTable />
-         <UpdateButton />
+
 
               </div>
        

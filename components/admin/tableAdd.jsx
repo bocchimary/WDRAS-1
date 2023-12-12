@@ -7,7 +7,7 @@ const TableAdd = () => {
   useEffect(() => {
     const fetchLogsConsumedData = async () => {
       try {
-        const response = await fetch('http://192.168.243.178:3001/getAllGallons');
+        const response = await fetch('http://localhost:3001/getAllGallons');
         const data = await response.json();
 
         if (response.ok) {
@@ -32,29 +32,7 @@ const TableAdd = () => {
   };
 
 
-  const handleDelete = async (index, Date) => {
-    try {
-      const itemDate = Date || logsConsumedData[index].Date;
-  
-      // Make a DELETE request to your server
-      const response = await fetch(`http://192.168.243.178:3001/deleteGallon/${itemDate}`, {
-        method: 'DELETE',
-      });
-  
-      if (response.ok) {
-        // If the server successfully deletes the item, update the state
-        const updatedData = logsConsumedData.filter((item) => item.Date !== itemDate);
-        setLogsConsumedData(updatedData);
-      } else {
-        // Handle error response from the server
-        console.error('Error deleting item:', response.statusText);
-      }
-    } catch (error) {
-      // Handle network or other errors
-      console.error('Error deleting item:', error);
-    }
-  };
-  
+
 
 
   const Modalstyles = () => {

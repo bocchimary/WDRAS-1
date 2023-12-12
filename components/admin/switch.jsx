@@ -16,7 +16,7 @@ const Settings = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://192.168.243.178:3002/stuffs');
+        const response = await axios.get('http://localhost:3002/stuffs');
         const data = response.data.map((stuff) => ({
           ipAddress: stuff.ip_address,
           location: stuff.location,
@@ -82,7 +82,7 @@ const Settings = () => {
   const updateSwitchStatus = async (ipAddress, newSwitchState) => {
     try {
       const response = await axios.post(`http://${ipAddress}/setparams`, {
-        switch: newSwitchState ? 0 : 1,
+        switch: newSwitchState ? 1 : 0,
       });
       return response.data; // Assuming the response contains relevant information
     } catch (error) {

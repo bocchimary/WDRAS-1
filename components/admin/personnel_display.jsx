@@ -19,7 +19,7 @@ const Disp = ({ data, onUpdate }) => {
 
   const handleDelete = async (id) => {
     try {
-      await fetch(`http://192.168.243.178:3001/users/${id}`, {
+      await fetch(`http://localhost:3001/users/${id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -134,7 +134,7 @@ const Home = () => {
   const [totalConsumed, setTotalConsumed] = useState(0);
 
   const fetchData = () => {
-    fetch("http://192.168.243.178:3002/stuffs")
+    fetch("http://localhost:3002/stuffs")
       .then((res) => {
         if (!res.ok) {
           throw new Error("Failed to fetch data");
@@ -165,7 +165,7 @@ const Home = () => {
   
   const updateData = async (id, newLocation, newIpAddress) => {
     try {
-      await fetch(`http://192.168.243.178:3001/users/${id}`, {
+      await fetch(`http://localhost:3001/users/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -182,7 +182,7 @@ const Home = () => {
   };
   const storeTotalConsumed = async (totalConsumed) => {
     try {
-      await fetch("http://192.168.243.178:3001/storeTotalConsumed", {
+      await fetch("http://localhost:3001/storeTotalConsumed", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

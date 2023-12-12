@@ -9,7 +9,7 @@ const LogsConsumedComponent = () => {
     // Fetch all data from logs_consumed from the server
     const fetchLogsConsumedData = async () => {
       try {
-        const response = await fetch('http://192.168.243.178:3001/getAllLogsConsumed');
+        const response = await fetch('http://localhost:3001/getAllLogsConsumed');
         const data = await response.json();
 
         if (response.ok) {

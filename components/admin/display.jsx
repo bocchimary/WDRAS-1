@@ -4,9 +4,11 @@ const GallonsTotalComponent = () => {
   const [totalGallons, setTotalGallons] = useState(null);
   const [totalRemaining, setTotalRemaining] = useState(null);
   const [totalCons, setTotalCons] = useState(null);
+
+ 
   useEffect(() => {
     // Fetch total gallons from the server
-    fetch('http://192.168.243.178:3001/gallonstotal')
+    fetch('http://localhost:3001/gallonstotal')
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -20,7 +22,7 @@ const GallonsTotalComponent = () => {
         console.error('Error fetching total gallons:', error);
       });
 
-      fetch('http://192.168.243.178:3001/gallonsRemaining')
+      fetch('http://localhost:3001/gallonsRemaining')
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -34,7 +36,7 @@ const GallonsTotalComponent = () => {
         console.error('Error fetching total gallons:', error);
       });
 
-      fetch('http://192.168.243.178:3001/consumed')
+      fetch('http://localhost:3001/consumed')
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -86,6 +88,7 @@ const GallonsTotalComponent = () => {
       )}    
                     </div>
                 </div>
+                
             </div>
         </div>
    

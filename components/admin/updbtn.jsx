@@ -11,7 +11,7 @@ const UpdateButton = () => {
     
   const handleUpdate = async () => {
     try {
-      const response = await axios.post('http://192.168.243.178:3001/updateRemaining');
+      const response = await axios.post('http://localhost:3001/updateRemaining');
       console.log('Update successful:', response.data);
      
     } catch (error) {

@@ -41,7 +41,7 @@ function App() {
     
     const checkForDuplicateIP = async (ip) => {
       try {
-        const response = await fetch('http://192.168.243.178:3001/checkDuplicate', {
+        const response = await fetch('http:/localhost:3001/checkDuplicate', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -77,7 +77,7 @@ function App() {
 
     const handleCheckWaterLevel = async () => {
       try {
-        const response = await fetch('http://192.168.243.178:3001/checknull', {
+        const response = await fetch('http://localhost:3001/checknull', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -110,7 +110,7 @@ function App() {
               return;
           }
   
-          const response = await fetch('http://192.168.243.178:3001/register', {
+          const response = await fetch('http://localhost:3001/register', {
               method: 'POST',
               headers: {
                   'Content-Type': 'application/json',
@@ -145,7 +145,7 @@ function App() {
     
 
   const handleReset = async () => {
-    await fetch("http://192.168.243.178:3001/resetTotalConsumed", {
+    await fetch("http://localhost:3001/resetTotalConsumed", {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',

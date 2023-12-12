@@ -7,7 +7,7 @@ const Card = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch("http://192.168.243.178:3001/getTotalConsumed");
+                const response = await fetch("http://localhost:3001/getTotalConsumed");
                 const data = await response.json();
                 setTotalConsumed(data.totalConsumed);
                 setLoading(false);

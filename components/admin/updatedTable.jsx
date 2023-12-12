@@ -14,7 +14,7 @@ const Inventory1= () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch("http://192.168.243.178:3002/updated");
+      const response = await fetch("http://localhost:3002/updated");
       const data = await response.json();
       const formattedData = data.map((item) => ({
         Date: item.Date,

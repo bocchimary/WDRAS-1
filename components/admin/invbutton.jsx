@@ -14,7 +14,7 @@ const InventoryForm = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch("http://192.168.243.178:3002/stuffs");
+      const response = await fetch("http://localhost:3002/stuffs");
       const data = await response.json();
       const formattedData = data.map((item) => ({
         location: item.location,
