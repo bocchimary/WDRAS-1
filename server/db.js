@@ -410,21 +410,30 @@ app.get('/consumed', (req, res) => {
 });
 
 app.get('/gallonsRemaining', (req, res) => {
-  pool.query('SELECT remaining FROM updated', (selectErr, selectResults) => {
-    if (selectErr) {
-      console.error('Error', selectErr);
+  // Update the 'remaining' column in the 'updated' table
+  pool.query('UPDATE updated SET remaining = gallons - consumed', (updateErr, updateResults) => {
+    if (updateErr) {
+      console.error('Error updating remaining', updateErr);
       return res.status(500).json({ error: 'Internal Server Error' });
     }
 
-    if (!selectResults || selectResults.length === 0) {
-      // Handle case where no data is found
-      return res.status(404).json({ error: 'No data found.' });
-    }
+    // Select the updated 'remaining' value
+    pool.query('SELECT remaining FROM updated', (selectErr, selectResults) => {
+      if (selectErr) {
+        console.error('Error selecting remaining', selectErr);
+        return res.status(500).json({ error: 'Internal Server Error' });
+      }
+      if (!selectResults || selectResults.length === 0) {
+        // Handle case where no data is found
+        return res.status(404).json({ error: 'No data found.' });
+      }
 
-    const totalRemaining = selectResults[0].remaining; // Assuming there is only one result
-    res.status(200).json({ totalRemaining });
+      const totalRemaining = selectResults[0].remaining; // Assuming there is only one result
+      res.status(200).json({ totalRemaining });
+    });
   });
 });
+
 
 app.post('/updateRemaining', async (req, res) => {
   try {
@@ -526,6 +535,7 @@ app.post('/updateLimit', async (req, res) => {
     res.status(500).json({ success: false, message: 'Internal server error' });
   }
 });
+
 
 
 
